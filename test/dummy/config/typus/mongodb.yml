@@ -1,0 +1,5 @@
+# FIXME: This model is disabled because mongoid is still not compatible with Rails 4
+# Hit:
+#   fields:
+#     default: name, description
+#   application: MongoDB

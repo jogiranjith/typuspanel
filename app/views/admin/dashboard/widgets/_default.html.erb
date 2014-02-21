@@ -1,0 +1,46 @@
+<%
+  applications = admin_user.applications
+
+  if params[:application]
+    applications.reject! { |a| a.parameterize != params[:application] }
+  end
+%>
+
+<div class="span3">
+</div>
+
+<div class="span9">
+
+  <h2><%= Typus::I18n.t("Dashboard") %></h2>
+
+  <% if applications.any? %>
+    <% applications.each do |app| %>
+
+      <table class="table">
+
+        <thead>
+          <tr>
+            <th><%= Typus::I18n.t(app) %></th>
+          </tr>
+        </thead>
+
+        <% admin_user.application(app).map(&:constantize).each do |klass| %>
+          <% unless klass.typus_options_for(:hide_from_dashboard) %>
+            <tr>
+              <td>
+                <%= link_to klass.model_name.human.pluralize, :controller => "/admin/#{klass.to_resource}" %>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+
+      </table>
+
+    <% end %>
+  <% else %>
+    <div class="notice">
+      <%= Typus::I18n.t("No applications detected.") %>
+    </div>
+  <% end %>
+
+</div>

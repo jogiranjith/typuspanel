@@ -1,0 +1,7 @@
+<div class="control-group" id="<%= attribute_id %>">
+  <%= form.label attribute, link_to_detach_attribute_for_paperclip(attribute), :class => "control-label" %>
+  <div class="controls">
+    <%= form.file_field attribute, options %>
+    <%= typus_paperclip_preview(@item, attribute) %>
+  </div>
+</div>

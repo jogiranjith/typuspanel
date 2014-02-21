@@ -1,0 +1,23 @@
+<div style="margin: 0 0 0.5em 0;">
+
+  <div style="float: left;">
+    <% html_options = { "class" => "thumbnail", "data-toggle" => "modal", "modal-id" => "#{item.id}_#{attribute}" } %>
+
+    <%= render :partial => 'admin/templates/modals/dragonfly',
+               :locals => { :html_options => html_options, :preview => preview, :attachment => attachment } %>
+
+    <%= link_to "#preview_#{html_options['modal-id']}", html_options do %>
+      <%= image_tag thumb, :alt => preview %>
+    <% end %>
+  </div>
+
+  <div style="float: left;">
+    <ul style="margin: 0 0 0 15px!important;">
+      <li><strong>File name:</strong> <%= attachment.name %></li>
+      <li><strong>File type:</strong> <%= attachment.mime_type %></li>
+      <li><strong>Dimensions:</strong> <%= attachment.width %> x <%= attachment.height %></li>
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+</div>

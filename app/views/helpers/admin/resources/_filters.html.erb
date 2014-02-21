@@ -1,0 +1,14 @@
+<%= form_tag nil, method: :get, class: "well well-small form-inline" do %>
+
+  <% filters.each do |filter| %>
+    <% key, value = filter[:key], filter[:value] %>
+    <%= select_tag key, options_for_select(value, params[key]) %>
+  <% end %>
+
+  <% hidden_filters.each do |key, value| %>
+    <%= hidden_field_tag key, value %>
+  <% end %>
+
+  <%= submit_tag Typus::I18n.t("Filter"), name: nil, class: "btn" %>
+
+<% end %>

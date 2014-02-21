@@ -1,0 +1,80 @@
+<%
+  page_title = @resource.model_name.human.pluralize
+  admin_title(page_title)
+%>
+
+<% content_for :main_grid do %>
+
+  <%= render 'index' %>
+
+  <div class="row-fluid">
+    <div class="span6">
+      <h1><%= page_title %></h1>
+    </div>
+    <div class="pull-right" style="margin: 15px 5px 0 0;">
+      <%= admin_search %>
+    </div>
+  </div>
+
+  <%= admin_display_flash_message %>
+
+  <% if @resource.typus_scopes.any? || predefined_filters.any? %>
+    <div class="tabbable tabs-below">
+      <ul class="nav nav-tabs">
+        <% all_klass = params[:scope] ? "inactive" : "active" %>
+        <li class="<%= all_klass %>">
+          <%= link_to url_for(params.dup.cleanup.merge(:action => 'index')) do %>
+            <%= Typus::I18n.t("All") %>
+            <% if @resource.typus_options_for(:counters) %>
+              <%= "&nbsp;<span class='badge'>#{resource.count}</span>".html_safe %>
+            <% end %>
+          <% end %>
+        </li>
+
+        <% @resource.typus_scopes.each do |scope| %>
+          <% klass = params[:scope].eql?(scope) ? "active" : "inactive" %>
+          <li class="<%= klass %>">
+            <%= link_to url_for(:scope => scope) do %>
+              <%= Typus::I18n.t(scope.humanize) %>
+              <% if @resource.typus_options_for(:counters)  %>
+                <%= "&nbsp; <span class='badge'>#{@resource.send(scope).count}</span>".html_safe %>
+              <% end %>
+          <% end %>
+          </li>
+        <% end %>
+
+        <% predefined_filters.each do |filter, action, scope| %>
+          <li>
+            <% url = action.is_a?(String) ? params.dup.cleanup.merge(:action => action) : action %>
+            <%= link_to url do %>
+              <%= Typus::I18n.t(filter) %>
+              <% if @resource.typus_options_for(:counters) && scope && @resource.respond_to?(scope) %>
+                <%= "&nbsp;<span class='badge'>#{@resource.send(scope).count}</span>".html_safe %>
+              <% end %>
+            <% end %>
+          </li>
+        <% end %>
+
+        <% if 1 == 2 && resource.any? && (formats = resource.typus_options_for(:export).extract_settings).any? %>
+          <% formats.each do |format| %>
+            <li><%= link_to format.upcase, :format => format %></li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= build_filters %>
+
+  <% if @items.any? -%>
+    <% if controller.respond_to?(:bulk) %>
+      <%= build_actions { build_list(@resource, fields, @items) } %>
+    <% else %>
+      <%= build_list(@resource, fields, @items) %>
+    <% end %>
+    <%= admin_paginate %>
+  <% else %>
+    <p><%= Typus::I18n.t("No entries found.") %></p>
+  <% end %>
+
+<% end %>

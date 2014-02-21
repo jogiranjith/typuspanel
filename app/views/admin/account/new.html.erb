@@ -1,0 +1,13 @@
+<%
+  page_title = Typus::I18n.t("Sign up")
+  admin_title(page_title)
+%>
+
+<%= form_for Typus.user_class_as_symbol,
+             :url => { :action => :create },
+             :html => { :class => "form-stacked" } do |form| %>
+
+  <%= render :partial => "form",
+             :locals => { :form => form, :submit_text => "Sign up" } %>
+
+<% end %>

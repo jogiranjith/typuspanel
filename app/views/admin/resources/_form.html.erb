@@ -1,0 +1,36 @@
+<%= render "form_javascripts" %>
+<% form_class = headless_mode? ? 'form-vertical' : 'form-horizontal' %>
+
+<%= form_for @item,
+            :url => options,
+            :html => { :multipart => true, :class => form_class } do |form| %>
+
+  <%= render "helpers/admin/resources/errors" %>
+
+  <fieldset>
+    <%= build_form(fields, form) %>
+
+    <% if headless_mode? %>
+      <% unless @item.new_record? %>
+        <%= hidden_field_tag "_id", @item.id %>
+        <%= hidden_field_tag "_label", @item.to_label %>
+      <% end %>
+      <%= hidden_field_tag "_continue" %>
+    <% else %>
+      <div class="form-actions">
+        <% build_save_options.each do |key, value, special| %>
+          <% klass = key.eql?("_save") ? 'btn-primary' : 'btn' %>
+          <%
+            message = Typus::I18n.t(value)
+            options = { :name => key,
+                        :onclick => "Typus.setConfirmUnload(false);",
+                        'data-disable-with' => message,
+                        :class => "btn #{klass}" }
+          %>
+          <%= submit_tag message, options %>
+        <% end %>
+      </div>
+    <% end %>
+  </fieldset>
+
+<% end %>

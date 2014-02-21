@@ -1,0 +1,37 @@
+<%
+  page_title = @resource.model_name.human.pluralize
+  admin_title(page_title)
+%>
+
+<% content_for :main_grid do %>
+
+  <h1><%= page_title %></h1>
+
+  <%= admin_display_flash_message %>
+
+  <%= render 'index' %>
+
+  <ul class="predefined_filters">
+    <% predefined_filters.each do |filter, action, scope| %>
+      <li><%= link_to Typus::I18n.t(filter), params.dup.cleanup.merge(:action => action) %> (<%= @resource.send(scope).count %>)</li>
+    <% end %>
+  </ul>
+
+  <% if @items.any? -%>
+    <%= build_list(@resource, fields, @items) %>
+    <%= admin_paginate(@items, Typus.pagination) %>
+  <% else %>
+    <p><%= Typus::I18n.t("No entries found.") %></p>
+  <% end %>
+
+<% end %>
+
+<div class="sidebar">
+  <div class="well">
+    <%= build_sidebar %>
+  </div>
+</div>
+
+<div class="content">
+  <%= yield :main_grid %>
+</div>

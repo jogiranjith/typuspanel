@@ -1,0 +1,18 @@
+<%= form_tag action: 'bulk' do %>
+
+  <%= block.call %>
+
+  <% if bulk_actions.any? %>
+    <div class="well well-small form-inline">
+      <select id="bulk_action" name="batch_action">
+        <option value="" selected="selected">Bulk actions</option>
+        <% bulk_actions.each do |name, action| %>
+          <option value="<%= action %>"><%= Typus::I18n.t(name) %></option>
+        <% end %>
+      </select>
+
+      <%= submit_tag Typus::I18n.t("Apply"), name: nil, class: "btn" %>
+    </div>
+  <% end %>
+
+<% end %>

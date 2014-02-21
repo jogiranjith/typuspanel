@@ -1,0 +1,14 @@
+<h2>Welcome!</h2>
+
+<%
+  issue = link_to('issue', 'https://github.com/fesplugas/typus/issues')
+  user_guide = link_to('user guide', 'http://docs.typuscmf.com/')
+%>
+
+<p>Learn more about configuring the interface in the official <%= user_guide %>.</p>
+
+<p>If you find a bug or think something in the documentation is
+missing don't hesitate in opening an <%= issue %>.</p>
+
+<p>Replace this sidebar by dropping a file named
+<code>_sidebar.html.erb</code> on the <code>app/views/admin/dashboard</code> folder.</p>

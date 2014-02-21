@@ -1,0 +1,30 @@
+<!-- dashboard#_sidebar.html.erb -->
+
+<%
+  code = link_to('GitHub', 'https://github.com/fesplugas/typus/tree/master/test/dummy')
+  typus = link_to('Typus', 'http://www.typuscmf.com/')
+  issue = link_to('issue', 'https://github.com/fesplugas/typus/issues')
+  user_guide = link_to('user guide', 'http://docs.typuscmf.com/')
+%>
+
+<h2>Welcome!</h2>
+
+<p>This is the collection of models, organized by functionality used to
+<strong>test</strong> <%= typus %>.</p>
+
+<p>Code for this application is available at <%= code %>.</p>
+
+<p>Learn more about configuring the interface in the official <%= user_guide %>.</p>
+
+<p>If you find a bug or think something in the documentation is
+missing don't hesitate in opening an <%= issue %>.</p>
+
+<p>Replace this sidebar by dropping a file named
+<code>_sidebar.html.erb</code> on the <code>app/views/admin/dashboard</code> folder.</p>
+
+<p>Version details:</p>
+
+<ul>
+  <li>Rails <%= Rails.version %></li>
+  <li>Ruby <%= RUBY_VERSION %></li>
+</ul>

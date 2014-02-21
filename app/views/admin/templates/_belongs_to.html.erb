@@ -1,0 +1,13 @@
+<%= render  :partial => 'admin/templates/modals/belongs_to',
+            :locals => { :attribute => attribute, :related => related, :attribute_id => attribute_id } %>
+
+<div class="control-group" id="<%= attribute_id %>_li">
+  <%= form.label attribute, label_text, { :class => "control-label" } %>
+  <div class="controls">
+    <% if values.any? %>
+      <%= form.select related_fk, values, options, html_options %>
+    <% else %>
+      <%= Typus::I18n.t("No entries found.") %>
+    <% end %>
+  </div>
+</div>

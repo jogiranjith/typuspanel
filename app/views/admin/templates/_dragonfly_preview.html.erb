@@ -1,0 +1,12 @@
+<% if headless_mode? %>
+  <%= image_tag thumb, :alt => preview %>
+<% else %>
+  <% html_options = { "data-toggle" => "modal", "modal-id" => "#{item.id}_#{attribute}" } %>
+
+  <%= render :partial => 'admin/templates/modals/dragonfly',
+             :locals => { :html_options => html_options, :preview => preview, :attachment => attachment } %>
+
+  <%= link_to "#preview_#{html_options['modal-id']}", html_options do %>
+    <%= image_tag thumb, :alt => preview %>
+  <% end %>
+<% end %>

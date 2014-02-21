@@ -1,0 +1,25 @@
+<!-- List of all available models -->
+
+<h2><%= Typus::I18n.t("Site Administration") %></h2>
+
+<table class="table">
+
+  <thead>
+    <tr>
+      <th><%= Typus::I18n.t("Model") %></th>
+      <th><%= Typus::I18n.t("Items") %></th>
+      <th><%= Typus::I18n.t("Actions") %></th>
+    </tr>
+  </thead>
+
+  <% admin_user.models.map(&:constantize).each do |klass| %>
+    <tr>
+      <td><%= link_to klass.model_name.human.pluralize, :controller => "/admin/#{klass.to_resource}" %></td>
+      <td><%= klass.count %></td>
+      <td width="100px">
+        <%= link_to Typus::I18n.t("Add"), :controller => "/admin/#{klass.to_resource}", :action => 'new' %>
+      </td>
+    </tr>
+  <% end %>
+
+</table>

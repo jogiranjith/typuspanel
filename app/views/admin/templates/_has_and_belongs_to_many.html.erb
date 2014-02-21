@@ -1,0 +1,21 @@
+<% chosen_class = "chzn-select-#{attribute_id}" %>
+
+<%= render :partial => 'admin/templates/modals/has_and_belongs_to_many',
+           :locals => { :attribute => attribute, :attribute_id => attribute_id } %>
+
+<div class="control-group" id="<%= attribute_id %>">
+  <%= form.label attribute, label_text, { :class => "control-label" } %>
+  <%= hidden_field_tag related_ids %>
+  <div class="controls">
+    <%= select_tag related_ids,
+                   options_from_collection_for_select(values.all, "id", "to_label", related_items.map(&:id)),
+                   html_options.merge(:multiple => true,
+                                      :id => attribute_id,
+                                      :class => chosen_class,
+                                      "data-placeholder" => Typus::I18n.t("Select Some Options")) %>
+  </div>
+</div>
+
+<script type="text/javascript">
+  // $(document).ready(function () { $(".<%= chosen_class %>").chosen(); });
+</script>

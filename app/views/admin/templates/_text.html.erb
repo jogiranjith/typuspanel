@@ -1,0 +1,11 @@
+<%
+  custom = { :rows => @resource.typus_options_for(:form_rows) }
+  options = options.merge!(custom)
+%>
+
+<div class="control-group" id="<%= attribute_id %>">
+  <%= form.label attribute, label_text.html_safe, { :class => "control-label" } %>
+  <div class="controls">
+    <%= form.text_area attribute, options %>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<ul class="nav">
+
+  <li class="<%= params[:controller].eql?('admin/dashboard') ? 'active' : 'inactive' %>">
+    <%= link_to admin_dashboard_index_path do %>
+      <i class="icon-home"></i>
+      <%= Typus::I18n.t("Dashboard") %>
+    <% end %>
+  </li>
+
+  <% admin_user.applications.each do |application| %>
+
+    <%
+      app_id, apps = application.parameterize, admin_user.application(application)
+      if (params[:application] == app_id) || (@resource && apps.include?(@resource.model_name))
+        klass = 'active'
+      end
+    %>
+
+    <li class="<%= klass %> dropdown" data-dropdown="dropdown">
+      <%= link_to "#", :class => "dropdown-toggle", "data-toggle" => "dropdown" do %>
+        <%= Typus::I18n.t(application) %>
+        <b class="caret"></b>
+      <% end %>
+
+      <ul class="dropdown-menu">
+        <% admin_user.application(application).map(&:constantize).each do |klass| %>
+          <% if klass.typus_options_for(:hide_from_dashboard) == false %>
+            <li>
+                <%= link_to klass.model_name.human.pluralize, :controller => "/admin/#{klass.to_resource}" %>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    </li>
+
+  <% end %>
+
+</ul>

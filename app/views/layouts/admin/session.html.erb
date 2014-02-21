@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html lang="<%= I18n.locale %>">
+
+<head>
+  <%= render 'admin/shared/head' %>
+
+  <style type="text/css">
+    body.base {
+      padding-top: 120px;
+      padding-bottom: 40px;
+      background-color: #f5f5f5;
+    }
+
+    .well {
+      background-color: #FFF;
+      border: 1px solid #e5e5e5;
+    }
+  </style>
+</head>
+
+<body class="base">
+
+  <div class="container">
+    <div class="row">
+      <div class="span4 offset4 well">
+
+          <legend><%= Typus.admin_title %></legend>
+          <%= admin_display_flash_message %>
+          <%= yield :layout %>
+
+        <% if content_for?(:actions) %>
+          <div id="actions">
+            <%= yield :actions %>
+          </div>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

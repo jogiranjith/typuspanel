@@ -1,0 +1,6 @@
+<div class="control-group" id="<%= attribute_id %>">
+  <%= form.label attribute, label_text, { :class => "control-label" } %>
+  <div class="controls">
+    <%= form.select attribute, @resource.send(attribute.pluralize), options, html_options %>
+  </div>
+</div>

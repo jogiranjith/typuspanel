@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html lang="<%= I18n.locale %>">
+
+<head>
+  <%= render 'admin/shared/head' %>
+</head>
+
+<body class="<%= body_class %>">
+
+  <div class="container-fluid">
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <div class="brand"><%= admin_title %></div>
+          <%= render "helpers/admin/base/apps" %>
+          <%= render "helpers/admin/base/login_info" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <% if controller.controller_name.eql?('dashboard') %>
+        <%= yield %>
+      <% else %>
+        <div class="span3">
+          <%= build_sidebar %>
+        </div>
+        <div class="span9">
+          <%= yield :main_grid %>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+
+</body>
+
+</html>

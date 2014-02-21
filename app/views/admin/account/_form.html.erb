@@ -1,0 +1,11 @@
+<fieldset>
+    <% label = Typus.user_class.human_attribute_name(:email) %>
+    <%= form.text_field :email, :placeholder => label, :class => 'span4', :autofocus => 'autofocus' %>
+
+  <% if controller.controller_name == 'session' %>
+      <% label = Typus.user_class.human_attribute_name(:password) %>
+      <%= form.password_field :password, :placeholder => label, :class => 'span4' %>
+  <% end %>
+
+  <%= form.submit Typus::I18n.t(submit_text), :class => 'btn btn-primary' %>
+</fieldset>
